@@ -1,0 +1,118 @@
+.main-wrapper {
+  height: 100%;
+  width: 100%;
+}
+
+.main-wrapper {
+  min-height: 100vh;
+  grid-area: main;
+  position: relative;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "sidebar header"
+    "sidebar main";
+}
+
+.multiple-grid {
+  display: grid;
+  background-color: #EEE !important;
+}
+
+.main-wrapper.rtl {
+  grid-template-columns: 1fr auto;
+  grid-template-rows: 1fr auto;
+  grid-template-areas:
+    "header sidebar"
+    "main sidebar";
+
+  .main-container {
+    box-shadow: inset 0px 2px 10px 0 rgba($dark, 0.55);
+  }
+}
+
+.dropdown-left {
+  .dropdown-menu {
+    right: 0;
+    left: auto;
+  }
+}
+
+.navbar-dark {
+  .dropdown-menu {
+    @extend .dropdown-menu-dark
+  }
+}
+
+.main-wrapper-responsive {
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    $next: breakpoint-next($breakpoint, $grid-breakpoints);
+    $infix: breakpoint-infix($next, $grid-breakpoints);
+
+    &.sidebar-menu-rtl {
+      grid-template-areas:
+        "header sidebar"
+        "main sidebar";
+    }
+
+    // stylelint-disable-next-line scss/selector-no-union-class-name
+    &#{$infix} {
+      @include media-breakpoint-down($next) {
+        grid-template-areas:
+          "header header"
+          "sidebar main";
+
+        &.rtl {
+          grid-template-areas:
+            "header header"
+            "main sidebar";
+        }
+      }
+
+      &.rtl {
+        .sidebar-menu-header {
+          flex-direction: row-reverse;
+        }
+      }
+    }
+  }
+}
+
+.main-header {
+  grid-area: header;
+  padding: 0.5rem;
+}
+
+.main-container {
+  grid-area: main;
+  box-shadow: inset 2px 1px 9px 1px  rgba($dark, 0.10);
+  overflow: auto;
+  padding-top: 1rem;
+}
+
+table.api {
+  width: 100%;
+  th.name {
+    width: 20%;
+  }
+  th.type {
+    width: 20%;
+  }
+  th.default {
+    width: 20%;
+  }
+  th.description {
+    width: 40%;
+  }
+}
+
+.sidebar-menu {
+  padding-top: 0;
+  flex-direction: column;
+  grid-area: sidebar;
+  overflow-y: auto;
+}
+
+.navbar-brand {
+  padding-right: 1rem;
+}

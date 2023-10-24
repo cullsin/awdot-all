@@ -1,0 +1,17 @@
+
+# Build react client
+FROM node:16.13.2
+
+# Working directory be app
+WORKDIR /app/awdot/mono/
+
+# copy local files to app folder
+COPY . .
+
+###  Installing dependencies
+
+RUN yarn install
+
+EXPOSE 3004
+
+CMD yarn run start

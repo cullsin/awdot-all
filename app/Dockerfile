@@ -1,0 +1,20 @@
+# Dockerfile for React client
+
+# Build react client
+FROM node:18.11.0
+
+# Working directory be app
+WORKDIR /var/www/html/awdot/app/
+
+COPY package*.json yarn.lock .
+
+###  Installing dependencies
+
+RUN yarn install --silent
+
+# copy local files to app folder
+COPY . .
+
+EXPOSE 3000
+
+CMD yarn run start

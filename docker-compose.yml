@@ -1,0 +1,56 @@
+version: '4.0'
+
+services:
+  server:
+    build:
+      context: ./mono
+      dockerfile: Dockerfile
+    image: awdot-mono
+    container_name: awdot-mono
+    command: /var/www/html/awdot/mono/node_modules/.bin/nodemon server.js
+    volumes:
+      - ./server/:/var/www/html/awdot/mono/
+      - /var/www/html/awdot/mono/node_modules
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+    env_file: ./mono/.env
+    environment:
+      - NODE_ENV=development
+    networks:
+      - app-network
+  mongo:
+    image: mongo
+    volumes:
+      - data-volume:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - app-network
+  client:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    image: awdot-app
+    container_name: awdot-app
+    command: npm start
+    volumes:
+      - ./client/:/var/www/html/awdot/ui/
+      - /var/www/html/awdot/ui/node_modules
+    depends_on:
+      - server
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+
+networks:
+    app-network:
+        driver: bridge
+
+volumes:
+    data-volume:
+    node_modules:
+    web-root:
+      driver: local

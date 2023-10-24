@@ -1,0 +1,21 @@
+@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap-icons/font/bootstrap-icons';
+@import './font.scss';
+@import './app/index.scss';
+@import './asset/css/fontawesome-all.min.css';
+@import './layout/login/index.scss';
+@import './sidemenu.scss';
+@import './input.scss';
+@import './button.scss';
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 13px;
+    min-height: 100vh;
+}
+
+.card {
+    input, select, span, textarea {
+        font-size: 15px;
+    }    
+    background-color: transparent;
+}

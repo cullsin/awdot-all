@@ -1,0 +1,16 @@
+input::placeholder {
+    font-size: 0.8rem !important;
+}
+
+.form-control:focus {
+    border-color: none;
+    box-shadow: none;
+}
+
+.ew-border-gradient, .input-group-text {
+    border-radius: 5px;
+    .form-control {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+}
